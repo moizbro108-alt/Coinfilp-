@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Coin Flip - Official App & Game Download</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Figtree:wght@400;600;700&display=swap">
+  <style>
+    :root {
+      --bg: #0d111a;
+      --card-bg: #151b2a;
+      --card-sub: #1e263c;
+      --border: #293552;
+      --gold: #f5b324;
+      --gold-dark: #b87c0a;
+      --silver: #a0b6d9;
+      --text: #f0f4fc;
+      --text-muted: #8b9bb4;
+      --win: #10b981;
+      --lose: #ef4444;
+      --radius: 16px;
+    }
+    [data-theme="light"] {
+      --bg: #f3f6fc;
+      --card-bg: #ffffff;
+      --card-sub: #e9effa;
+      --border: #d2dbe9;
+      --gold: #d99200;
+      --gold-dark: #8c5b00;
+      --silver: #556c8c;
+      --text: #0f172a;
+      --text-muted: #64748b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Figtree', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px 80px;
+    }
+    .container {
+      width: 100%;
+      max-width: 520px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 4px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .brand img {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      border: 2px solid var(--gold);
+      box-shadow: 0 4px 12px rgba(245, 179, 36, 0.25);
+    }
+    .brand h1 {
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .brand span {
+      display: block;
+      font-size: 13px;
+      color: var(--text-muted);
+      font-family: 'Figtree', sans-serif;
+      font-weight: 400;
+    }
+    .theme-toggle {
+      background: var(--card-sub);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* Download Banner */
+    .hero-download {
+      background: linear-gradient(135deg, rgba(245, 179, 36, 0.15) 0%, rgba(21, 27, 42, 0.95) 100%);
+      border: 2px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+    .badge-bar {
+      display: inline-flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .badge {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: var(--card-sub);
+      border: 1px solid var(--border);
+      color: var(--gold);
+    }
+    .badge.green {
+      color: #34d399;
+      border-color: rgba(52, 211, 153, 0.4);
+    }
+    .hero-download h2 {
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 26px;
+      margin-bottom: 8px;
+    }
+    .hero-download p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    .btn-row {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .btn-dl {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px 20px;
+      border-radius: 14px;
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-dl.primary {
+      background: linear-gradient(135deg, #f5b324 0%, #b87c0a 100%);
+      color: #120d00;
+      box-shadow: 0 6px 20px rgba(245, 179, 36, 0.4);
+    }
+    .btn-dl.primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(245, 179, 36, 0.6);
+    }
+    .btn-dl.secondary {
+      background: var(--card-sub);
+      color: var(--text);
+      border: 1px solid var(--border);
+      font-size: 15px;
+    }
+    .btn-dl.secondary:hover {
+      border-color: var(--gold);
+      background: var(--card-bg);
+    }
+    .meta-details {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 16px;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 12px;
+    }
+
+    /* Installation Steps */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+    }
+    .card h3 {
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 18px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .steps {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .step-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    .step-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--card-sub);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    /* Interactive 3D Coin Web Arena */
+    .arena-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+    }
+    .stage {
+      height: 170px;
+      display: grid;
+      place-items: center;
+      perspective: 800px;
+      margin: 10px 0;
+    }
+    .coin-wrapper {
+      width: 100px;
+      height: 100px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 1.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+    .coin-face {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      backface-visibility: hidden;
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      border: 4px solid;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .coin-face.heads {
+      background: radial-gradient(circle at 35% 30%, #fff0b8, var(--gold) 55%, var(--gold-dark));
+      border-color: #ffd978;
+      color: #4a2c00;
+    }
+    .coin-face.tails {
+      background: radial-gradient(circle at 35% 30%, #f0f6ff, var(--silver) 55%, #3d4f6d);
+      border-color: #c9ddf7;
+      color: #17243b;
+      transform: rotateY(180deg);
+    }
+    .flip-btn {
+      width: 100%;
+      padding: 14px;
+      border: 0;
+      border-radius: 12px;
+      background: var(--card-sub);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .flip-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    .result-text {
+      min-height: 28px;
+      margin-top: 10px;
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    footer {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <img src="/logo.jpg" alt="Coin Flip Game Logo">
+        <div>
+          <h1>COIN FLIP</h1>
+          <span>Pure PvP Casino • 0 Bots • Fair Play</span>
+        </div>
+      </div>
+      <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">☀️ Theme</button>
+    </header>
+
+    <!-- Download Hero Card -->
+    <div class="hero-download">
+      <div class="badge-bar">
+        <span class="badge green">● Ready to Install</span>
+        <span class="badge">Android API 24-36</span>
+        <span class="badge">v1.0.0</span>
+      </div>
+      <h2>Get Coin Flip on Android</h2>
+      <p>Play with real 3D haptics, low-latency flips, zero bots, and secure multi-device cloud synchronization.</p>
+      
+      <div class="btn-row">
+        <a class="btn-dl primary" href="/app.apk" download="app.apk">
+          <span>📥</span> Download Direct APK (app.apk - 24 MB)
+        </a>
+        <a class="btn-dl secondary" href="/coin-flip-app.zip" download="coin-flip-app.zip">
+          <span>📦</span> Download Project Source (.ZIP - 26 MB)
+        </a>
+      </div>
+
+      <div class="meta-details">
+        <span>Direct: <a href="/app.apk" style="color:var(--gold);text-decoration:none;"><b>/app.apk</b></a></span>
+        <span>Mirror: <a href="/CoinFlip.apk" style="color:var(--gold);text-decoration:none;"><b>/CoinFlip.apk</b></a></span>
+        <span>Folder: <a href="/download/app.apk" style="color:var(--gold);text-decoration:none;"><b>/download/app.apk</b></a></span>
+      </div>
+    </div>
+
+    <!-- Quick Install Guide -->
+    <div class="card">
+      <h3>📱 3 Steps to Install APK</h3>
+      <ul class="steps">
+        <li class="step-item">
+          <div class="step-num">1</div>
+          <div>Tap the <b>Download APK</b> button above to save <code>CoinFlip.apk</code> to your Android phone or tablet.</div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">2</div>
+          <div>Open your <b>Downloads</b> or notification bar and tap on <code>CoinFlip.apk</code>.</div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">3</div>
+          <div>If prompted by Android, tap <i>Settings</i> and allow <i>"Install unknown apps"</i>, then press <b>Install</b>.</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Interactive Web Preview -->
+    <div class="arena-card">
+      <h3>🪙 Web Practice Arena</h3>
+      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">Try the 3D physics coin flip directly in your browser:</p>
+      <div class="stage">
+        <div class="coin-wrapper" id="coin">
+          <div class="coin-face heads">
+            <span style="font-size:24px">👑</span>
+            HEADS
+          </div>
+          <div class="coin-face tails">
+            <span style="font-size:24px">⚜️</span>
+            TAILS
+          </div>
+        </div>
+      </div>
+      <div class="result-text" id="resultText">Tap flip to test!</div>
+      <button class="flip-btn" id="flipActionBtn" onclick="flipWebCoin()">TEST FLIP COIN</button>
+    </div>
+
+    <footer>
+      <p>Coin Flip Game • Cross-Platform (Android App & Web Engine)</p>
+      <p>Clean Economy: 0 Bots • No Free Coin Manipulation • 100% Player Driven</p>
+    </footer>
+  </div>
+
+  <script>
+    let isFlipping = false;
+    let currentDeg = 0;
+
+    function flipWebCoin() {
+      if (isFlipping) return;
+      isFlipping = true;
+      const coin = document.getElementById('coin');
+      const res = document.getElementById('resultText');
+      const btn = document.getElementById('flipActionBtn');
+      btn.disabled = true;
+      res.textContent = "Flipping...";
+
+      const isHeads = Math.random() >= 0.5;
+      const extraSpins = 4 + Math.floor(Math.random() * 3);
+      currentDeg += extraSpins * 360 + (isHeads ? 0 : 180);
+      
+      coin.style.transform = `rotateY(${currentDeg}deg)`;
+
+      setTimeout(() => {
+        isFlipping = false;
+        btn.disabled = false;
+        res.textContent = isHeads ? "✨ Result: HEADS (Gold)" : "✨ Result: TAILS (Silver)";
+      }, 1200);
+    }
+
+    function toggleTheme() {
+      const root = document.documentElement;
+      const current = root.getAttribute('data-theme') || 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      document.getElementById('themeBtn').textContent = next === 'dark' ? '☀️ Theme' : '🌙 Theme';
+    }
+  </script>
+</body>
+</html>

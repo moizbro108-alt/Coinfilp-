@@ -73,7 +73,7 @@ fun DownloadAppDialog(
   val context = LocalContext.current
   var copiedText by remember { mutableStateOf<String?>(null) }
 
-  val apkUrl = "https://ais-pre-u35f5s5cktshrxpm3b32ov-479158337887.asia-east1.run.app/CoinFlip.apk"
+  val apkUrl = "https://ais-pre-u35f5s5cktshrxpm3b32ov-479158337887.asia-east1.run.app/app.apk"
   val zipUrl = "https://ais-pre-u35f5s5cktshrxpm3b32ov-479158337887.asia-east1.run.app/coin-flip-app.zip"
   val appShareUrl = "https://ais-pre-u35f5s5cktshrxpm3b32ov-479158337887.asia-east1.run.app"
 
