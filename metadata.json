@@ -1,0 +1,6 @@
+{
+  "name": "Coin Flip",
+  "description": "High-stakes 3D coin flip game featuring real-time multiplayer lobbies, dark and light themes, cloud sync, push notifications, VIP tiers, and instant coin transfers.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
